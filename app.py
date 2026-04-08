@@ -20,7 +20,7 @@ import plotly.express as px
 import speech_recognition as sr
 from audio_recorder_streamlit import audio_recorder
 
-st.set_page_config(page_title="Smart Health Assistant", page_icon="🩺", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="MediSense AI", page_icon="🧬", layout="wide", initial_sidebar_state="expanded")
 ui_utils.inject_custom_css()
 
 @st.cache_resource
@@ -39,11 +39,18 @@ def load_model_and_extractor():
 # LOGIN PAGE
 # ─────────────────────────────────────
 def login_signup_page():
-    _, col, _ = st.columns([1, 1.2, 1])
+    _, col, _ = st.columns([1, 1.4, 1])
     with col:
-        st.markdown("<div class='white-card' style='padding:40px; margin-top: 50px;'>", unsafe_allow_html=True)
-        st.markdown("<h1 style='text-align:center; font-size:2.2rem; color:#0f172a;'>Welcome Back</h1>", unsafe_allow_html=True)
-        st.markdown("<p style='text-align:center; margin-bottom:30px; color:#64748b;'>Enter your clinical credentials to access the pulse dashboard.</p>", unsafe_allow_html=True)
+        # Logo / Brand block
+        st.markdown("""
+        <div style='text-align:center; padding:40px 0 24px 0;'>
+            <div style='display:inline-flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#0d6efd,#0046cc); border-radius:16px; width:56px; height:56px; margin:0 auto 14px auto;'>
+                <span style='font-size:1.8em;'>🧬</span>
+            </div>
+            <h1 style='text-align:center; font-size:1.9rem; color:#0f172a; margin:0 0 6px 0;'>MediSense AI</h1>
+            <p style='text-align:center; color:#64748b; font-size:0.9rem; margin:0 0 24px 0;'>Your intelligent clinical diagnostics platform.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
         t_login, t_signup, t_guest = st.tabs(["Sign In", "Register", "Guest"])
 
@@ -90,7 +97,6 @@ def login_signup_page():
                 st.session_state.username = "Guest"
                 st.rerun()
 
-        st.markdown("</div>", unsafe_allow_html=True)
         st.markdown('''
         <div class="blue-insight-card" style="margin-top:20px; display:flex; align-items:center; gap:15px;">
             <div style="background:white; border-radius:50%; padding:10px; flex-shrink:0; min-width:40px; text-align:center;">🛡️</div>
@@ -106,8 +112,7 @@ def login_signup_page():
 # DIAGNOSIS PAGE
 # ─────────────────────────────────────
 def render_diagnosis(model, extractor, all_symptoms, target_lang):
-    st.markdown("<h1 style='color:#0f172a;'>🧠 AI-Powered Smart Health Assistant</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='color:#64748b; margin-top:-10px; margin-bottom:20px;'>Enter Patient Details to get an AI-driven clinical assessment.</p>", unsafe_allow_html=True)
+    ui_utils.page_header("🩺 AI Diagnosis", "Enter patient details and symptoms to receive an AI-driven clinical assessment.")
 
     col_left, col_right = st.columns([3, 2], gap="large")
 
@@ -471,7 +476,7 @@ def main():
             </div>
             <div>
                 <p style="margin:0; font-weight:600; color:#0f172a;">{st.session_state.username}</p>
-                <p style="margin:0; font-size:0.75em; color:#64748b;">Clinical Dashboard</p>
+                <p style="margin:0; font-size:0.75em; color:#64748b;">MediSense AI</p>
             </div>
         </div>
     </div>
