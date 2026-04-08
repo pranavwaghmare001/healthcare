@@ -367,3 +367,44 @@ def section_card(content_fn, *args, **kwargs):
     st.markdown("<div class='white-card'>", unsafe_allow_html=True)
     content_fn(*args, **kwargs)
     st.markdown("</div>", unsafe_allow_html=True)
+
+def medical_disclaimer_full():
+    """Renders the full professional medical disclaimer."""
+    st.markdown("""
+    <div class="disclaimer-card" style="margin-top:20px;">
+        <span style="font-size:1.5em; flex-shrink:0;">⚠️</span>
+        <div>
+            <strong>Professional Medical Disclaimer</strong><br>
+            This AI-powered platform is for informational purposes only. It is not 100% accurate and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+def medical_disclaimer_short():
+    """Renders a compact disclaimer for sidebars or small spaces."""
+    st.caption("⚠️ **AI Disclosure**: Not a medical substitute. Insights are advisory only. Consult a doctor for clinical diagnosis.")
+
+def emergency_warning_card(critical_symptoms, location=""):
+    """Renders a strong emergency warning for high severity cases."""
+    from emergency import get_mock_hospitals
+    hospitals_html = "".join([f"<li>🏥 {h['name']} ({h['distance']}, ~{h['time']})</li>" for h in get_mock_hospitals(location)])
+    
+    st.markdown(f"""
+    <div class="emergency-alert-card">
+        <div style="font-weight:800; font-size:1.1em; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+            <span>🚨</span> EMERGENCY ACTION REQUIRED
+        </div>
+        <div style="margin-bottom:12px;">
+            Critical symptoms detected: <strong style="color:#ce1212;">{", ".join(critical_symptoms).upper()}</strong>. 
+            These require immediate professional clinical attention.
+        </div>
+        <div style="background:#ce1212; color:white; padding:12px; border-radius:8px; text-align:center; font-weight:800; margin-bottom:15px; font-size:1.2em;">
+            📞 CALL AMBULANCE: 108
+        </div>
+        <div style="font-weight:600; margin-bottom:8px; font-size:0.9em;">NEAREST EMERGENCY FACILITIES (ESTIMATED):</div>
+        <ul style="margin:0; padding-left:20px; font-size:0.85em; opacity:0.9;">
+            {hospitals_html}
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+

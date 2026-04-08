@@ -213,15 +213,20 @@ def render_diagnosis(model, extractor, all_symptoms, target_lang):
     care_tips = st.session_state.last_care_tips
 
     with col_right:
+        results = st.session_state.last_results
+        is_emergency = st.session_state.last_emergency
+
         if results:
             top = results[0]
-            severity_color = {"High": "#ef4444", "Medium": "#f59e0b", "Low": "#22c55e"}.get(top["severity"], "#64748b")
+            severity_color = {'High': '#ef4444', 'Medium': '#f59e0b', 'Low': '#22c55e'}.get(top['severity'], '#64748b')
+            
+            # Emergency Action Card (Requirement 3 & 5)
+            if is_emergency or top['severity'] == "High":
+                 ui_utils.emergency_warning_card(st.session_state.last_critical, st.session_state.last_location)
+            
+            # Result Detail Card
             st.markdown(f"""
             <div class="white-card">
-                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
-                    <h3 style="color:#0d6efd; margin:0;">{translate_text(top['disease'], target_lang)}</h3>
-                    <span style="background:#d1fae5; color:#065f46; font-size:0.7em; font-weight:700; padding:4px 10px; border-radius:20px; white-space:nowrap;">AI RESULT</span>
-                </div>
                 <p style="color:#64748b; font-size:0.85em; margin-bottom:4px;">Confidence Match <strong style="float:right;">{top['probability']}%</strong></p>
                 <div style="background:#e2e8f0; border-radius:4px; height:8px; margin-bottom:12px;">
                     <div style="background:#0d6efd; width:{top['probability']}%; height:8px; border-radius:4px;"></div>
@@ -229,9 +234,13 @@ def render_diagnosis(model, extractor, all_symptoms, target_lang):
                 <span style="background:{severity_color}22; color:{severity_color}; font-size:0.8em; font-weight:600; padding:3px 10px; border-radius:20px;">
                     ⬤ {top['severity']} Severity
                 </span>
-                <p style="color:#475569; font-size:0.85em; margin-top:12px;">{top.get('advice', 'Based on reported symptoms, a clinical assessment is recommended.')}</p>
+                <p style="color:#475569; font-size:0.85em; margin-top:12px;">{top.get('explanation', 'Based on reported symptoms, a clinical assessment is recommended.')}</p>
             </div>
             """, unsafe_allow_html=True)
+            
+            # Short Disclaimer under results (Requirement 2)
+            ui_utils.medical_disclaimer_short()
+
 
             if len(results) > 1:
                 with st.expander("View all predictions"):
@@ -542,6 +551,11 @@ def main():
         st.session_state.chat_history = []
         st.rerun()
 
+    # Sidebar Footer Disclaimer (Requirement 2)
+    st.sidebar.markdown("---")
+    ui_utils.medical_disclaimer_short()
+
+
     if nav == "🩺 Diagnosis & Emergency":
         render_diagnosis(model, extractor, all_symptoms, target_lang)
 
@@ -603,6 +617,11 @@ def main():
                         st.markdown(f"🔹 {sym.replace('_', ' ').title()}")
             else:
                 st.error(f"'{search_query}' not found in the knowledge base.")
+
+    # Main App Footer Disclaimer (Requirement 1)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    ui_utils.medical_disclaimer_full()
+
 
 
 if __name__ == "__main__":
