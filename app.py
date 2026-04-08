@@ -117,7 +117,6 @@ def render_diagnosis(model, extractor, all_symptoms, target_lang):
     col_left, col_right = st.columns([3, 2], gap="large")
 
     with col_left:
-        st.markdown("<div class='white-card'>", unsafe_allow_html=True)
         st.markdown("<h4 style='color:#0f172a; margin-bottom:16px;'>👤 Demographic Data</h4>", unsafe_allow_html=True)
         dc1, dc2, dc3 = st.columns(3)
         with dc1:
@@ -126,11 +125,9 @@ def render_diagnosis(model, extractor, all_symptoms, target_lang):
             gender = st.selectbox("GENDER", ["Male", "Female", "Other"])
         with dc3:
             location = st.text_input("LOCATION", placeholder="e.g. London, UK")
-        st.markdown("</div>", unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        st.markdown("<div class='white-card'>", unsafe_allow_html=True)
         sym_hcol, sym_tcol = st.columns([2, 1])
         with sym_hcol:
             st.markdown("<h4 style='color:#0f172a;'>🩺 Symptoms & Manifestations</h4>", unsafe_allow_html=True)
@@ -177,7 +174,6 @@ def render_diagnosis(model, extractor, all_symptoms, target_lang):
 
         st.markdown("<br>", unsafe_allow_html=True)
         diagnose_clicked = st.button("📊 Analyze Symptoms", use_container_width=True)
-        st.markdown("</div>", unsafe_allow_html=True)
 
     if "last_results" not in st.session_state:
         st.session_state.last_results = None
@@ -255,15 +251,48 @@ def render_diagnosis(model, extractor, all_symptoms, target_lang):
 
             probs = [r['probability'] for r in results]
             diseases_list = [translate_text(r['disease'], target_lang) for r in results]
-            if sum(probs) < 100:
-                probs.append(100 - sum(probs))
-                diseases_list.append("Other")
-            fig = px.pie(values=probs, names=diseases_list, hole=0.45,
-                         color_discrete_sequence=["#0d6efd", "#60a5fa", "#93c5fd", "#bfdbfe"])
-            fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-                              font=dict(color="#334155"), showlegend=True, margin=dict(t=20, b=20),
-                              title=dict(text="Probability Breakdown", font=dict(color="#0f172a")))
-            st.plotly_chart(fig, use_container_width=True)
+            
+            # Use a slightly lighter blue for the bar chart items
+            chart_df = pd.DataFrame({
+                "Disease": diseases_list,
+                "Probability %": probs
+            }).sort_values("Probability %", ascending=True)
+
+            fig = px.bar(
+                chart_df,
+                x='Probability %',
+                y='Disease',
+                orientation='h',
+                text='Probability %',
+                color='Probability %',
+                color_continuous_scale=['#eff6ff', '#0d6efd']
+            )
+
+            fig.update_traces(
+                texttemplate='%{text}%', 
+                textposition='outside',
+                marker_line_width=0,
+                hovertemplate="<b>%{y}</b><br>Match: %{x}%<extra></extra>"
+            )
+
+            fig.update_layout(
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                font=dict(color="#475569", size=11),
+                showlegend=False,
+                coloraxis_showscale=False,
+                height=min(200 + len(results)*30, 400),
+                margin=dict(t=40, b=0, l=0, r=40),
+                xaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[0, 120]),
+                yaxis=dict(showgrid=False, zeroline=False, title=""),
+                title=dict(
+                    text="MATCH PROBABILITY BY DISEASE", 
+                    font=dict(color="#94a3b8", size=10, weight=700),
+                    x=0, y=0.98
+                )
+            )
+            st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
 
         if is_emergency:
             hospitals_html = "".join([f"<li>🏥 {h['name']} ({h['distance']}, ~{h['time']})</li>" for h in get_mock_hospitals(loc)])
@@ -347,7 +376,6 @@ def render_report(target_lang):
         if parsed_data and parsed_data.get("metrics"):
             metrics = parsed_data["metrics"]
 
-            st.markdown("<div class='white-card'>", unsafe_allow_html=True)
             st.markdown("<h4 style='color:#0f172a; margin-bottom:16px;'>📊 Extracted Metrics</h4>", unsafe_allow_html=True)
 
             for biomarker, info in metrics.items():
@@ -364,7 +392,6 @@ def render_report(target_lang):
                 </div>
                 """, unsafe_allow_html=True)
 
-            st.markdown("</div>", unsafe_allow_html=True)
 
             # AI Insights from clinical interpretation messages
             abnormal = [
@@ -574,7 +601,6 @@ def main():
                     st.markdown("<div class='white-card'><h4 style='color:#0f172a; margin-bottom:12px;'>Common Symptoms</h4>", unsafe_allow_html=True)
                     for sym in syms:
                         st.markdown(f"🔹 {sym.replace('_', ' ').title()}")
-                    st.markdown("</div>", unsafe_allow_html=True)
             else:
                 st.error(f"'{search_query}' not found in the knowledge base.")
 

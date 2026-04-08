@@ -3,20 +3,26 @@ import random
 def check_emergency(symptoms):
     """
     Checks if any of the provided symptoms classify as a medical emergency.
-    Features combination logic and standard critical flags.
+    Features combination logic, normalization, and standard critical flags.
     """
-    critical_symptoms = [
+    # Normalized critical symptoms (lowercase, spaces)
+    critical_symptoms = {
         "chest pain", 
         "breathlessness", 
         "shortness of breath", 
         "breathing difficulty",
         "unconsciousness",
         "loss of consciousness",
-        "paralysis (half body)",
+        "paralysis",
         "altered sensorium",
         "coma",
-        "continuous bleeding"
-    ]
+        "continuous bleeding",
+        "acute heart attack",
+        "low oxygen",
+        "sudden vision loss",
+        "severe allergic reaction",
+        "seizures"
+    }
     
     # Advanced logic: certain combinations are high risk
     high_risk_combos = [
@@ -24,10 +30,17 @@ def check_emergency(symptoms):
         {"vomiting", "dizziness", "confusion"}
     ]
     
-    found_critical = [sym for sym in symptoms if sym in critical_symptoms]
+    # Normalize user symptoms: lowercase and replace underscores with spaces
+    norm_user_syms = [s.lower().replace("_", " ").strip() for s in symptoms]
+    found_critical = [s for s in norm_user_syms if s in critical_symptoms]
+    
+    # Special substring checks for flexibility (e.g. "severe chest pain")
+    for s in norm_user_syms:
+        if any(crit in s for crit in ["chest pain", "shortness of breath", "bleeding"]):
+            found_critical.append(s)
     
     # Check combos
-    user_syms_set = set(symptoms)
+    user_syms_set = set(norm_user_syms)
     for combo in high_risk_combos:
         if combo.issubset(user_syms_set):
             found_critical.extend(list(combo))
@@ -35,6 +48,7 @@ def check_emergency(symptoms):
     if found_critical:
         return True, list(set(found_critical))
     return False, []
+
 
 def get_mock_hospitals(location=""):
     """

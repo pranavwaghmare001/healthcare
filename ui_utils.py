@@ -84,24 +84,33 @@ h3 { font-size: 1.1rem !important; font-weight: 700 !important; color: #0f172a !
 h4 { font-size: 0.95rem !important; font-weight: 700 !important; color: #0f172a !important; }
 p  { color: #475569; line-height: 1.65; }
 
-/* ─────────────── BUTTONS ─────────────── */
+/* Force white text on ALL buttons (including nested span/p) */
+div.stButton > button, 
+div.stButton > button p, 
+div.stButton > button span,
+div.stButton > button div {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    font-size: 1rem !important;
+}
+
 div.stButton > button {
     background: #0d6efd !important;
-    color: white !important;
-    font-weight: 600 !important;
     border: none !important;
     border-radius: 10px !important;
-    padding: 0.55rem 1.4rem !important;
-    font-size: 0.9rem !important;
+    padding: 0.6rem 1.6rem !important;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.15) !important;
     box-shadow: 0 2px 8px rgba(13,110,253,0.25) !important;
     transition: all 0.2s ease !important;
     letter-spacing: 0.01em;
 }
+
 div.stButton > button:hover {
     background: #0b5ed7 !important;
     transform: translateY(-1px) !important;
     box-shadow: 0 4px 14px rgba(13,110,253,0.35) !important;
 }
+
 div.stButton > button:active {
     transform: translateY(0) !important;
 }
