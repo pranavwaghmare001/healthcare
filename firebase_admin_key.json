@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ai-powered-smart-health-61a29",
+  "private_key_id": "9b5010b5a74cd655cec80b5c00c9a7992fc3dfe1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDN5rpz0wUf2epW\nSVZCCcnpX16KnRpvxcGPkQHuvGQppXcWBaMIzshV/UOKH+8gZxqbNsNmLTanR10Q\n0DcmmNdGZ7sUW2d5TIr8qOrjz7Jl4ELLV6u4SXtPxmZtgAXAoh8fQ5rUKJ/AIHSe\nVHjXP5Xx1kghVZlrzeXLUJvwgjcEKK29VUICElK20ofbMGNFkgZrTVY1u12KAB3d\nd+QdTRCiAxOrPP2FGvWnSxkkt63TSaMvzdItU80VKdqM+JTmSbiz1lasdNvnwIiv\nZQ5bzYi+uIV6UC6+zJtcjdX+odZfv4nK1WN4LpQJSNvpBBw8cv3s53ITvPGn9/Tf\nF6ZaRXWNAgMBAAECggEADl5rJZkU0ve0pEfi5qHjPs+Ce/7hsOomi1vNvDjWbpeW\n+2jySzOPBH0zoOiAmgzH7QwBz9gY58yRoJI/PwjMgSPNCOsmCe9/BYnONo6wfu6L\nCsC4AZjTK6qHTF3ySNKnhFmF7QdWuqQpL0Fq226bCrDvALCGD+FjB3C9KSgVKcuC\n4x1T/MHixYO/z4ghVAA/iA/7WIq8DjZjT8b2ZuAXW2Vy4YPKLJBDB4BjyAuVaW6k\nY5FL3niNTryJcquexTBHrdy4HvnaF4chBHz+7i6LWykqeTfQA9ivsSK5dPhghMIG\nYj1sg5Z6GKQE4uGGoRP6UIz2MRh3oNPIxC0Yi4E8IQKBgQDqsAehiPfht86e+OJL\n+WZHjuLZNpXPWZvq5ua6FvscNPl5lrNLKfgisClugpaRRpfpU8WOUTiQjFD8JwNH\n7ldWZjAU3pSphGI4U1EEZ8BWBQ0ozMLwWyPJHLiefavG8iCPbhTTXknsxKf64ATc\nSiQrDTDi7Kt6+bpJ8eJYQGJ5/QKBgQDgmXrK7M9ZjGDICgW5QLhEn3yhEixvUm1Z\nfhD441YcpPeQAb+zn6cPGGm30ajL46XXZwHGi6zd69jUl1LzFX+ktZJxZlL/O+wC\n2zIoZMIFp3n09qN7B2botIRFtd3S6X2NneOzZHrZ3NEn2UFwcVYbP1u6DdCTkzXF\nH/wkgZ620QKBgEKRLYjvDchzV2MWGzILiqxPZh7Qccu/kg8d8WHlNNK6X+zSBwcR\n33UPXKEg305TpLEk9ss4VIADnND4y+ByRUmXcJnqzGYMy8NINpm2SALeKe5hrgV5\nBHx97gvef4PNl9i3E6ckfnlvCmqJcjd9vCaN9kjXcohOHz3sIxR/Jq+NAoGAA02+\npKV/F04dTlP3aZYuH7RI3QWraafIu/xCu6Z8acdzbMbZzwaWKn6tb2rCFN2wXs7B\nE+6SCGGjutzO94xlaELTeJ+MsPxsqE4ZGscAo5ynCpdmKDUfqmSdXXkjXirZEfA0\nnTrpI7M/0Fo9wC2qmpQAAWianNEZhWDHELJnZ0ECgYA8ftpdFM2Bj1CcSxVyIsUg\nGFdn0WiMhCg4ul+tBvzh6XUtukZapDnlwIO0vqKHUaniP9TxI6a5pXigfFS2OLcL\nsmY9DRwOUMXvJTH0Niqw3Dx6hv2YtJUo9sW9tAGVwn9mEA0Gns1g9oAvEyQ3uhIq\nIi91YszgQMaQDjfkujzEdw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@ai-powered-smart-health-61a29.iam.gserviceaccount.com",
+  "client_id": "104056143726877919718",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40ai-powered-smart-health-61a29.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

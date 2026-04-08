@@ -1,0 +1,129 @@
+:root {
+    --bg-dark: #0f172a;
+    --glass-bg: rgba(30, 41, 59, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --text: #f8fafc;
+    --error: #ef4444;
+}
+
+body, html {
+    margin: 0; padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #020617 0%, #172554 100%);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);
+    padding: 2rem;
+}
+
+#auth-container {
+    width: 450px;
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+#auth-container.active { display: flex; animation: slideUp 0.5s ease; }
+
+.dashboard {
+    width: 95%; max-width: 1400px;
+    height: 90vh;
+    display: flex;
+    gap: 2rem;
+}
+
+.sidebar {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.content {
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+}
+
+.view { display: none; }
+.view.active { display: block; animation: slideUp 0.4s ease; }
+
+/* Forms & Inputs */
+input, textarea, select {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 14px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+    font-family: 'Inter';
+    outline: none;
+    transition: 0.3s;
+}
+input:focus, textarea:focus { border-color: var(--primary); }
+
+.btn {
+    padding: 14px 24px;
+    border: none; border-radius: 8px;
+    font-weight: 600; cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    font-family: 'Inter';
+}
+.primary { background: linear-gradient(90deg, #2563eb, #3b82f6); color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
+.primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
+.secondary { background: rgba(255,255,255,0.05); color: #cbd5e1; border: 1px solid var(--glass-border);}
+.secondary:hover { background: rgba(255,255,255,0.1); }
+.logout { background: transparent; border: 1px solid var(--error); color: var(--error); }
+.logout:hover { background: rgba(239, 68, 68, 0.1); }
+
+.nav-btn {
+    background: transparent;
+    color: #94a3b8;
+    border: none; text-align: left;
+    padding: 16px; font-size: 1.1rem;
+    cursor: pointer; border-radius: 8px;
+    transition: 0.2s;
+    font-family: 'Inter';
+    font-weight: 500;
+}
+.nav-btn.active, .nav-btn:hover { background: rgba(59, 130, 246, 0.1); color: var(--primary); border-left: 4px solid var(--primary); }
+
+/* Components */
+.auth-form { display: none; flex-direction: column; gap: 0.8rem; }
+.auth-form.active { display: flex; }
+.tabs { display: flex; gap: 1.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem; margin-bottom: 1rem;}
+.tab-btn { background: none; border: none; color:#64748b; font-weight:bold; cursor:pointer; font-size:1.1rem; padding-bottom: 0.5rem; }
+.tab-btn.active { color: white; border-bottom: 2px solid var(--primary); }
+
+.error { color: var(--error); font-size: 0.9rem; font-weight: 500;}
+
+.tag-container { display:flex; gap:0.5rem; flex-wrap:wrap;}
+.tag { background: rgba(59, 130, 246, 0.2); border: 1px solid var(--primary); padding: 6px 12px; border-radius:12px; font-size: 0.9rem;}
+
+.card {
+    background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border);
+    border-radius: 12px; padding: 2rem; margin-top: 1.5rem;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.05);
+}
+
+pre { white-space: pre-wrap; font-family: 'Inter'; color: #cbd5e1; }
+.chat-box { height: 500px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; border: 1px solid var(--glass-border); }
+.chat-input-row { display: flex; gap: 1rem; }
+.chat-input-row input { margin-bottom: 0; }
+
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); }}

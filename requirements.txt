@@ -1,0 +1,17 @@
+pandas==2.2.0
+scikit-learn==1.4.0
+streamlit==1.31.0
+numpy==1.26.3
+plotly==5.18.0
+PyPDF2==3.0.1
+deep-translator==1.11.4
+SpeechRecognition==3.10.1
+audio-recorder-streamlit==0.0.10
+pytesseract==0.3.10
+Pillow==10.4.0
+
+firebase-admin==6.5.0
+
+fastapi==0.109.2
+uvicorn==0.27.1
+python-multipart==0.0.9
